@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+   <head>
+    <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Respomsive slider -->
+    <link href="../css/responsive-calendar.css" rel="stylesheet">
+        <script src = "{% static 'js/jquery.min.js' %}"></script>
+  </head>
+{% block content %}
+<style type="text/css">
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+#tav{
+  overflow-y: auto;
+  height: 400px;
+
+}
+</style>
+<body>
+  
+  <div class="container">
+      <a id="daily" class="card-panel col s3 m3 l2 waves-effect waves-light btn" href="/report" onclick="day()">Daily</a>
+      <a id="weekly" class="card-panel col s3 m3 l2 waves-effect waves-light btn" href="weekly" onclick="week()">Weekly</a>
+      <a id="monthly" class="card-panel col s3 m3 l2 waves-effect waves-light btn active" href="monthly" onclick="month()">Monthly</a>
+      <a class="card-panel col s3 m3 l2 waves-effect waves-light btn" href="/custom">Custom Range</a>
+
+        
+            
+          <h5>Pick the date</h5>
+          <form action="" method="post">   
+          {% csrf_token %}
+          {{ form.data }}
+         
+          <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">arrow_forward</i></button>
+            
+          </form><br>
+      <div class="row">     
+        <div class="col s6 m3 l3 card deep-orange darken-1">Tampering Events <br> {{suspicious.0.0}}</div>
+        <div class="col s6 m3 l3 card light-blue lighten-1">Inactive cameras <br> {{inactive.0.0}}</div>
+        <div class="col s6 m3 l3 card amber">Warnings <br> {{warnings.0.0}}</div>
+        <div class="col s6 m3 l3 card pink accent-2">Criticals <br> {{critical.0.0}}</div>
+      </div> 
+          <div id="tav">
+          <table class="responsive-table centered striped">
+              <thead>
+                <tr>
+                      <th>ID</th>
+                      <th>Code</th>
+                      <th>Type</th>
+                      <th>Time Stamp</th>
+                      <th>Camera ID</th>
+                      <th>Camera Status</th>
+                      <th>Action</th>
+                 </tr>
+              </thead>
+
+              <tbody>
+                {% for row in db %}
+                      {% with id=row.0 %}
+                      {% with code=row.1 %}
+                      {% with type=row.2 %}
+                      {% with time=row.3 %}
+                      {% with cameraID=row.4 %}
+                      {% with camera_status=row.5 %}
+                      {% with action=row.6 %}
+                <tr>
+                      <td>{{ id }}</td>
+                      <td>{{ code }}</td>
+                      <td>{{ type }}</td>
+                      <td>{{ time }}</td>
+                      <td>{{ cameraID }}</td>
+                      <td>{{ camera_status }}</td>
+                      <td>{{ action }}</td>
+                </tr>      
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
+              </tbody>
+          </table>  </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}
