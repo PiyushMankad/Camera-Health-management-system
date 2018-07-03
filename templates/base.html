@@ -13,11 +13,13 @@
 	    <title>Home Page</title>
 
 	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified JavaScript -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-  <script type="text/javascript" src="C:\Users\omni\Documents\django-auth-pattern-master\static\js\jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 		
 
 	 <style type="text/css">
@@ -93,17 +95,27 @@ nav{
       <a href="/" class="brand-logo centered">&nbsp;&nbsp;Omnipresent	</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/report"></a></li>
-        <li><a href="/home"></a></li>
+        <li><a onclick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a></li>
+        <li><a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a></li>
+        <li><a onclick="printit()"> </a></li>
         <li><a href="/logout">Logout</a></li>
       </ul>
     </div>
   </nav>
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="#!">three</a></li>
+    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+  </ul>
 <div id="mySidenav" class="sides">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
    
       <li><a href="/">Dashboard</a></li>
       <li><a href="/report">Reports</a></li>
-      <li><a href="/chart">Charts</a></li>
+      <li><a href="chart">Charts</a></li>
          
 </div>
        
@@ -131,6 +143,14 @@ nav{
     document.getElementById("main").style.marginLeft = "0";
     document.body.style.backgroundColor = "white";
 }
+function printit() {
+  var p = document.getElementById('main');
+  p.style.display='none';
+  window.print(p);
+  p.style.display='block';
+  // body...
+}
+$('.dropdown-trigger').dropdown();
 
 	     </script>   	
 	    {% block javascript %}

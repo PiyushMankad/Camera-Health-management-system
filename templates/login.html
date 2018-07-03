@@ -19,7 +19,7 @@
       margin: auto;
       width: 33%;
       position: relative;
-      background: linear-gradient(50deg, #000000, #ffffff);
+    background: linear-gradient(50deg, #64b5f6, #64ffda);
       
     }
     p{
@@ -28,7 +28,7 @@
 
    body{ 
     
-    background: linear-gradient(50deg, #ffffff, #000000);
+      background: linear-gradient(50deg, #00bcd4, #64b5f6);
     
     width: 100%;
 }
@@ -55,9 +55,9 @@
     
     {% endif %}
 {% endif %}
-    <div class="row">
-    <h3 class="panel-title">Sign In</h3>
-    </div>
+    
+    <h3 style="color:white; ">Sign In</h3>
+    
    
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
@@ -78,7 +78,7 @@
 </table>
 </p>
 <p class="bs-component">
-<center><input class="waves-effect waves-light btn" type="submit" value="login" /></center>
+<center><input class="waves-effect waves-light btn white" type="submit" value="login" /></center>
 </p>
 <input type="hidden" name="next" value="{{ next }}" />
 </form>

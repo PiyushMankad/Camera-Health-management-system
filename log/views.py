@@ -9,6 +9,7 @@ from django.urls import reverse
 import pymysql.cursors
 from django.contrib.sessions.models import Session
 from datetime import datetime, timedelta
+from log import charts
 # Create your views here.
 # this login required decorator is to not allow to any  
 # view without authenticating
@@ -22,12 +23,21 @@ def home(request):
 	war=warnings(today)
 	sus = suspicious(today)
 	cri=critical(today)
-	request.session['']
-	return render(request,"home.html",{'inactive':inactiv,'warnings':war,'suspicious':sus,'critical':cri})
+	chart_today=charts.doughnut(today)
+	today = datetime.strptime(today,'%Y-%m-%d')
+	end = today - timedelta(days=7)
+	chart_week=charts.doughnut_range(end,today)
+	arg = str(today)
+	da = arg.split('-')
+	month = da[0]+"-"+da[1]
+	chart_month=charts.doughnut(month)
+	return render(request,"home.html",{'inactive':inactiv,'warnings':war,'suspicious':sus,'critical':cri,'day':chart_today,'week':chart_week,'month':chart_month})
 
 @login_required(login_url="/login/")	
 def chart(request):
-	return render(request,"chart.html")
+	day=request.session['data']							
+	results=charts.doughnut(day)
+	return render(request,"chart.html",{'info':results,'day':day})
 
 @login_required(login_url="/login/")	
 def weekly(request):			#shows the selected database  of the past week
@@ -88,16 +98,15 @@ def monthly(request):		#shows the selected database in the month
 	if form.is_valid():
 		data = form.cleaned_data['data']
 		data=str(data)
-		datetime.strptime(data, '%Y-%m-%d')
 		request.session['data']=data       #setting new session date
 		da=data.split("-")
-		data=da[0]+"-"+da[1]+"%"
+		data=da[0]+"-"+da[1]
 		db=select(data)
 		inactiv=inactive(data)
 		war=warnings(data)
 		sus = suspicious(data)
 		cri=critical(data)
-		return render(request,"monthly.html",{'form': form,'data':data,'db':db,'inactive':inactiv,'warnings':war,'suspicious':sus,'critical':cri})
+		return render(request,"monthly.html",{'form': form,'data':da[1],'db':db,'inactive':inactiv,'warnings':war,'suspicious':sus,'critical':cri})
 	else:
 		data=request.session['data']
 		da=data.split("-")
@@ -107,7 +116,7 @@ def monthly(request):		#shows the selected database in the month
 		war=warnings(data)
 		sus = suspicious(data)
 		cri=critical(data)
-		return render(request,"monthly.html",{'form': form,'data':data,'db':db,'inactive':inactiv,'warnings':war,'suspicious':sus,'critical':cri})
+		return render(request,"monthly.html",{'form': form,'data':da[1],'db':db,'inactive':inactiv,'warnings':war,'suspicious':sus,'critical':cri})
 		
 
 @login_required(login_url="/login/")
@@ -188,37 +197,6 @@ def range(start,end):	#shows the database in the selected range used in week and
 		return results
 		client.close()
 
-'''def re_week(data):	#weekly's query function
-	try:
-		client = pymysql.connect(host='localhost',
-							 user='user',
-							 password='user',
-							 db='omni',
-							 port=3306)
-		cursor = client.cursor()
-		d = data - timedelta(days=7)
-		data = str(data)+"%"
-		query = "SELECT * FROM cameradb WHERE TimeStamp>='{}' AND TimeStamp<'{}';".format(d,data)
-		cursor.execute(query)
-		results=cursor.fetchall()
-		for row in results:
-			id=row[0]
-			code=row[1]
-			type=row[2]
-			time=row[3]
-			cameraID=row[4]
-			camera_status=row[5]
-			action= row[6]
-				   
-		client.commit()
-	except:
-		print("						NHI CHALEGA				")
-	finally:
-		return results
-		client.close()
-
-'''
-
 ''' the following functions are for selecting inactive cameras, warnings,  suspicious , criticals which are given on selection of a particular date 
 	for eg you require ONE value in the query for showing the data of the selected date and selected month'''  
 
@@ -236,6 +214,9 @@ def inactive(data):	#no of inactive cameras
 		cursor.execute(query)
 		results=cursor.fetchall()
 		client.commit()
+
+	except:
+		print(' 		Cant access database- run Xampp')
 	finally:
 		return results
 		client.close()
@@ -256,6 +237,7 @@ def warnings(data):	#no of warnings
 	finally:
 		return results
 		client.close()
+
 def suspicious(data):	#no of suspicious activity
 	try:
 		client = pymysql.connect(host='localhost',
@@ -272,6 +254,7 @@ def suspicious(data):	#no of suspicious activity
 	finally:
 		return results
 		client.close()
+
 def critical(data):	#critical cameras
 	try:
 		client = pymysql.connect(host='localhost',
@@ -329,6 +312,7 @@ def warnings_range(start,end):	#no of warnings
 	finally:
 		return results
 		client.close()
+
 def suspicious_range(start,end):	#no of suspicious activity
 	try:
 		client = pymysql.connect(host='localhost',
@@ -346,6 +330,7 @@ def suspicious_range(start,end):	#no of suspicious activity
 	finally:
 		return results
 		client.close()
+
 def critical_range(start,end):	#critical cameras
 	try:
 		client = pymysql.connect(host='localhost',
