@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+  </head>
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+   <!-- Compiled and minified CSS -->
+    
+ 
+</head>
+<body>
+  
+<div class="container"> 
+       <div class="row">     
+       	<h5>Events Today</h5>
+        <div class="col s6 m3 l3"><div class="card-panel deep-orange darken-1 white-text center-align">Tampering Events<h6>{{suspicious.0.0}}</h6></div></div>
+        <div class="col s6 m3 l3"><div class="card-panel light-blue lighten-1 white-text center-align">Inactive cameras<h6>{{inactive.0.0}}</h6></div></div>
+        <div class="col s6 m3 l3"><div class="card-panel amber white-text center-align">Warnings<h6>{{warnings.0.0}}</h6></div></div>
+        <div class="col s6 m3 l3"><div class="card-panel pink accent-2 white-text center-align">Criticals<h6>{{critical.0.0}}</h6></div></div>
+      </div> 
+
+      
+      <table class="responsive-table highlght">
+       	<tr>
+      		<td><blockquote><div id="donutchart" style="width: 500px; height: 400px;"></div></blockquote></td>
+      		<td><blockquote><div id="donutmonth" style="width: 500px; height: 400px;"></div></blockquote></td>
+      			
+      	</tr>
+      	<tr>
+      		<td><blockquote><div id="donutweek" style="width: 500px; height: 400px;"></div></blockquote></td>	
+      		<td></td>	
+      	</tr>
+      	
+      </table>
+
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawWeek);
+      function drawWeek() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', '24'],
+            ['Camera Blocked',{{week.0.0.0}}],
+            ['Camera Moved',{{week.1.0.0}}],
+            ['Network Down',{{week.2.0.0}}],
+            ['ROI Activity',{{week.5.0.0}}],
+            ['Video Loop',{{week.3.0.0}}],
+            ['Program Started',{{week.8.0.0}}],
+            ['Night Activity',{{week.4.0.0}}],
+            ['Suspicious Activity',{{week.6.0.0}}],
+            ['Camera Refreshed',{{week.7.0.0}}],
+            ['Camera Reseted',{{week.9.0.0}}],
+            ['People detected',{{week.11.0.0}}],
+            ['New ROI Selected',{{week.10.0.0}}],
+        ]);
+
+        var options = {
+          title: 'Activities in the last week',
+          pieHole: 0.3,
+          pieStartAngle: 90,
+
+        };
+
+        var chart_week = new google.visualization.PieChart(document.getElementById('donutweek'));
+        chart_week.draw(data, options);
+      }
+      google.charts.setOnLoadCallback(drawMonth);
+      function drawMonth() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', '24'],
+            ['Camera Blocked',{{month.0.0.0}}],
+            ['Camera Moved',{{month.1.0.0}}],
+            ['Network Down',{{month.2.0.0}}],
+            ['Video Loop',{{month.3.0.0}}],
+            ['Night Activity',{{month.4.0.0}}],
+            ['ROI Activity',{{month.5.0.0}}],
+            ['Camera Refreshed',{{month.7.0.0}}],
+            ['Program Started',{{month.8.0.0}}],
+            ['Camera Reseted',{{month.9.0.0}}],
+            ['New ROI Selected',{{month.10.0.0}}],
+            ['People detected',{{month.11.0.0}}],
+            ['Suspicious Activity',{{month.6.0.0}}],
+        ]);
+
+        var options = {
+          title: 'Activities in the Current Month',
+          pieHole: 0.3,
+          pieStartAngle: 160,
+
+        };
+
+        var chart_month = new google.visualization.PieChart(document.getElementById('donutmonth'));
+        chart_month.draw(data, options);
+      }
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', '24'],
+            ['Camera Moved',{{day.1.0.0}}],
+            ['Camera Blocked',{{day.0.0.0}}],
+            ['Video Loop',{{day.3.0.0}}],
+            ['Night Activity',{{day.4.0.0}}],
+            ['Network Down',{{day.2.0.0}}],
+            ['Suspicious Activity',{{day.6.0.0}}],
+            ['ROI Activity',{{day.5.0.0}}],
+            ['Program Started',{{day.8.0.0}}],
+            ['Camera Reseted',{{day.9.0.0}}],
+            ['Camera Refreshed',{{day.7.0.0}}],
+            ['People detected',{{day.11.0.0}}],
+            ['New ROI Selected',{{day.10.0.0}}],
+        ]);
+
+        var options = {
+          title: 'Activities held Today',
+          pieHole: 0.3,
+          pieStartAngle: 9,
+
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+</body>
+</html>
+
+{% endblock %}
