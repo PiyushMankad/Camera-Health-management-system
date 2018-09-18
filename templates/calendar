@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+<head>
+  <title>Dashboard</title>
+   <!-- Compiled and minified CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+   
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="{% static "/css/calendar.css" %}">
+  <meta charset="utf-8">
+    <title>Calendar</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        table{
+			   border: 10px solid black;
+			}
+        th {
+            height: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+        td {
+			text-align: center;
+            font-weight: 700;
+            height: 100px;
+        }
+  </style>
+     
+</head>
+<body>
+  
+{% block main %}
+<!--<form action="" method="post">
+    {% csrf_token %}
+   <class="btn btn-default" type="submit" value=" previous" >
+    <class="btn btn-default" type="submit" value="next" />
+</form>-->
+<h3><a href="/prev?m={{ month1 }}&&y={{ year }}">PREV</a> <a href="/next?m={{ month1 }}&&y={{ year }}">NEXT</h3>
+<table class="table" id="calendar-month" border= 15px>
+    <tr>
+            <th>Monday</th>
+            <th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+			<th>Saturday</th>
+			<th>Sunday</th>
+
+    </tr>
+	
+	<tr>	
+	{% for i in lst.0 %}
+	<td><a href=?day={{i}}/{{ month1 }}/{{ year }}>{{ i }}</a></td>	
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for i in lst.1 %}
+	<td><a href=?day={{i}}/{{ month1 }}/{{ year }}>{{ i }}</a></td>	
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for i in lst.2 %}
+	<td><a href=?day={{i}}/{{ month1 }}/{{ year }}>{{ i }}</a></td>	
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for i in lst.3 %}
+	<td><a href=?day={{i}}/{{ month1 }}/{{ year }}>{{ i }}</a></td>	
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for i in lst.4 %}
+	<td><a href=?day={{i}}/{{ month1 }}/{{ year }}>{{ i }}</a></td>	
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for i in lst.5 %}
+	<td><a href=?day={{i}}/{{ month1 }}/{{ year }}>{{ i }}</a></td>	
+	{% endfor %}
+	</tr>
+	<!--
+	<tr>
+    {% for week in month %}
+        {% if week %}
+            <tr>
+                {% for day, current in week %}
+                    <td class="{% if day == 0 %}calendarium-empty{% elif current %}calendarium-current{% else %}calendarium-day{% endif %}">
+                        <div class="calendarium-relative">
+                            {% if day != 0 %}
+                               <a href={{ day }}>{{ day }}</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+    {% endfor %}-->
+</table>
+
+
+{% endblock %}
+
+
+
+<!--<footer class="page-footer">
+<div class="footer-copyright">
+            <div class="container">
+            © 2018 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+</footer>-->
+</body>
+
+
+
+
+
+{% endblock %}

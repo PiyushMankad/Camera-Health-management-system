@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<html>
+<head>
+  
+    <style>
+        th{
+            height: 50px;
+            width: 50px;
+            font-weight: 700;
+            text-align: center;
+			}
+        td{
+            height: 50px;
+            width: 50px;
+            font-weight: 700;
+            text-align: center;
+            }
+        h5{
+
+        }
+       
+  </style>
+     
+</head>
+<body>
+<div class="container">
+
+<table>
+    <tr>
+        <td>
+
+<h5 class="center-align">{{month1}} {{year}}</h5>
+<a class="waves-effect waves-light btn" style="width:5%;float:left;" href="/prev?m={{ month1 }}&&y={{ year }}">&lt;</a>
+<a class="waves-effect waves-light btn" style="width:5%;float:right;" href="/next?m={{ month1 }}&&y={{ year }}">&gt;</a>
+
+<table class="left" id="calendar-month">
+    <tr>
+            <th>Mon</th>
+            <th>Tues</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+    </tr>
+    
+    <tr>    
+    {% for i in lst.0 %}
+    <td><a href="/video?day={{i}}/{{ month1 }}/{{ year }}">{{ i }}</a></td>  
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for i in lst.1 %}
+    <td><a href="/video?day={{i}}/{{ month1 }}/{{ year }}">{{ i }}</a></td>  
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for i in lst.2 %}
+    <td><a href="/video?day={{i}}/{{ month1 }}/{{ year }}">{{ i }}</a></td>  
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for i in lst.3 %}
+    <td><a href="/video?day={{i}}/{{ month1 }}/{{ year }}">{{ i }}</a></td>  
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for i in lst.4 %}
+    <td><a href="/video?day={{i}}/{{ month1 }}/{{ year }}">{{ i }}</a></td>  
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for i in lst.5 %}
+    <td><a href="/video?day={{i}}/{{ month1 }}/{{ year }}">{{ i }}</a></td>  
+    {% endfor %}
+    </tr>
+    
+</table>
+
+            
+        </td>
+    </tr>
+</table>
+        
+
+
+    <div class="carousel" style="width:50%">
+    {% for i in list %}
+    {% with image=i %}
+
+    <a class="carousel-item"><img src="/static{{folder}}{{image}}"></a>
+    {% endwith %}
+    {% endfor %}
+    </div>
+    <div><video width="640" height="480" controls>
+    <source src="/static/test.mp4" type="video/mp4">
+    </video>
+    </div>
+    
+</div>
+</body>
+</html>
+
+{% endblock %}

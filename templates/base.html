@@ -95,9 +95,6 @@ nav{
       <a href="/" class="brand-logo centered">&nbsp;&nbsp;Omnipresent	</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/report"></a></li>
-        <li><a onclick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a></li>
-        <li><a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a></li>
-        <li><a onclick="printit()"> </a></li>
         <li><a href="/logout">Logout</a></li>
       </ul>
     </div>
@@ -116,6 +113,7 @@ nav{
       <li><a href="/">Dashboard</a></li>
       <li><a href="/report">Reports</a></li>
       <li><a href="chart">Charts</a></li>
+      <li><a href="/calendar">Calendar</a></li>
          
 </div>
        
@@ -151,6 +149,7 @@ function printit() {
   // body...
 }
 $('.dropdown-trigger').dropdown();
+$('.carousel').carousel();
 
 	     </script>   	
 	    {% block javascript %}

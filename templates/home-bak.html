@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-
+  </head>
 {% block content %}
-
+<!DOCTYPE html>
 <html>
 <head>
   <title>Dashboard</title>
@@ -44,7 +44,7 @@
       google.charts.setOnLoadCallback(drawWeek);
       function drawWeek() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'No of Events'],
+          ['Task', '24'],
             ['Camera Blocked',{{week.0.0.0}}],
             ['Camera Moved',{{week.1.0.0}}],
             ['Network Down',{{week.2.0.0}}],
@@ -60,20 +60,19 @@
         ]);
 
         var options = {
-          title: 'Activities in the last week'
-         /* ,
+          title: 'Activities in the last week',
           pieHole: 0.3,
-          pieStartAngle: 90, */
+          pieStartAngle: 90,
 
         };
 
-        var chart_week = new google.visualization.BarChart(document.getElementById('donutweek'));
+        var chart_week = new google.visualization.PieChart(document.getElementById('donutweek'));
         chart_week.draw(data, options);
       }
       google.charts.setOnLoadCallback(drawMonth);
       function drawMonth() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'No of Events'],
+          ['Task', '24'],
             ['Camera Blocked',{{month.0.0.0}}],
             ['Camera Moved',{{month.1.0.0}}],
             ['Network Down',{{month.2.0.0}}],
@@ -89,19 +88,19 @@
         ]);
 
         var options = {
-          title: 'Activities in the Current Month' ,
-          /*pieHole: 0.3,
+          title: 'Activities in the Current Month',
+          pieHole: 0.3,
           pieStartAngle: 160,
-          */
+
         };
 
-        var chart_month = new google.visualization.BarChart(document.getElementById('donutmonth'));
+        var chart_month = new google.visualization.PieChart(document.getElementById('donutmonth'));
         chart_month.draw(data, options);
       }
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'No of Events'],
+          ['Task', '24'],
             ['Camera Moved',{{day.1.0.0}}],
             ['Camera Blocked',{{day.0.0.0}}],
             ['Video Loop',{{day.3.0.0}}],
@@ -118,13 +117,13 @@
 
         var options = {
           title: 'Activities held Today',
-          /*pieHole: 0.3,
+          pieHole: 0.3,
           pieStartAngle: 9,
-          */
+
 
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('donutchart'));
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
       }
     </script>
