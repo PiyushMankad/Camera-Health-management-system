@@ -1,0 +1,2 @@
+192.168.0.250 ; 4 ; admin ; anashaart ; 2 ; Amretto1 ; 21:20:00
+192.168.0.250 ; 7 ; admin ; anashaart ; 2 ; Amretto2 ; 21:25:00
