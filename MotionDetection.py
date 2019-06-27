@@ -227,12 +227,11 @@ def motionMap(rtsp,name):
 	num_frames = 500
 
 	for i in range(0, num_frames):
-		'''
 		There are some important reasons this if statement exists:
 			-in the first run there is no previous frame, so this accounts for that
 			-the first frame is saved to be used for the overlay after the accumulation has occurred
 			-the height and width of the video are used to create an empty image for accumulation (accum_image)
-		'''
+
 		frame = imutils.resize(cap.read()[1],width=720)
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		if (i == 0):
@@ -250,11 +249,9 @@ def motionMap(rtsp,name):
 			accum_image = cv2.add(accum_image, th1)
 			
 		### comment this for website ###
-		'''
 		cv2.imshow('frame', frame)
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
-		'''
 	
 	color_image = cv2.applyColorMap(accum_image, cv2.COLORMAP_JET)#HOT#PINK
 	result_overlay = cv2.addWeighted(first_frame, 0.8, color_image, 0.2, 0)
@@ -269,6 +266,7 @@ def motionMap(rtsp,name):
 	#cv2.imwrite('motionMap_org.jpg', result2)
 	cap.stop()
 	cv2.destroyAllWindows()
+'''
 
 
 
@@ -318,7 +316,7 @@ def get_from_database():
 	pool = Pool(len(data))
 	#pool.map(motionMap ,zip(dvrIP, channel, username, password, mode, name))
 	pool.map(motionMap,zip(rtsp,name))
-'''
+
 
 
 if __name__=='__main__':

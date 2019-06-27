@@ -1,0 +1,4 @@
+192.168.0.101 ;  ; admin ; admin123 ; 1 ; cabin ; 21:20:00
+192.168.0.103 ;  ; admin ; admin123 ; 1 ; entry ; 17:23:00
+192.168.0.102 ;  ; admin ; admin123 ; 1 ; overhead ; 17:27:009  
+192.168.0.104 ;  ; admin ; admin123 ; 1 ; outside ; 17:25:00

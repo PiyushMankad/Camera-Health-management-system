@@ -1,1 +1,1 @@
-192.168.0.102 : 01 : admin : admin123 : 1 : overhead
+192.168.0.102 : 01 : admin : admin123 : 1 : cabin
